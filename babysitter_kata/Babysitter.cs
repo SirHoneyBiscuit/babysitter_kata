@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace babysitter_kata
 {
-    public class Class1
+    public class Babysitter
     {
+        public Babysitter()
+        {
+
+        }
+
+        public string fee()
+        {
+            return "$0";
+        }
+
     }
 }
