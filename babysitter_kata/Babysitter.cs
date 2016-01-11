@@ -8,13 +8,16 @@ namespace babysitter_kata
 {
     public class Babysitter
     {
-        private int totalFee = 0;
+        private double TotalFee = 0.0;
+        private const double StartToBedRate = 12.0;
+        private const double BedToMidnightRate = 8.0;
+        private const double MidnightToEndRate = 16.0;
 
         public Babysitter(){}
 
         public string fee()
         {
-            return "$" + totalFee.ToString();
+            return String.Format("{0:C}", TotalFee);
         }
 
         public string job(DateTime _startTime, DateTime _endTime, DateTime _bedTime)

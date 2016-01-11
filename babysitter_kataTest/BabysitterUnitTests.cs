@@ -7,7 +7,10 @@ namespace babysitter_kataTest
     [TestClass]
     public class BabysitterUnitTests
     {
-
+        Babysitter sitter;
+        DateTime startTime;
+        DateTime endTime;
+        DateTime bedTime;
         /*  
          * The babysitter class contains a job function 
          *  It should take 3 values
@@ -19,7 +22,9 @@ namespace babysitter_kataTest
 
         [TestInitialize]
         public void setupUnitTest()
-        {}
+        {
+            sitter = new Babysitter();
+        }
 
         [TestCleanup]
         public void tearDownUnitTest()
@@ -28,18 +33,16 @@ namespace babysitter_kataTest
         [TestMethod]
         public void babysitterHasNoJob()
         {
-            Babysitter sitter = new Babysitter();
-            Assert.AreEqual("$0", sitter.fee());
+            Assert.AreEqual("$0.00", sitter.fee());
         }
 
         [TestMethod]
         public void emptyTimesMeanNoJob()
         {
-            Babysitter sitter = new Babysitter();
-            DateTime startTime = new DateTime();
-            DateTime endTime = new DateTime();
-            DateTime bedTime = new DateTime();
-            Assert.AreEqual("$0", sitter.job(startTime, endTime, bedTime));
+            startTime   = new DateTime();
+            endTime     = new DateTime();
+            bedTime     = new DateTime();
+            Assert.AreEqual("$0.00", sitter.job(startTime, endTime, bedTime));
         }
     }
 }
