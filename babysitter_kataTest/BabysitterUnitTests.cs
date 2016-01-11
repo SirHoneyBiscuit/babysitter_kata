@@ -44,5 +44,17 @@ namespace babysitter_kataTest
             bedTime     = new DateTime();
             Assert.AreEqual("$0.00", sitter.job(startTime, endTime, bedTime));
         }
+
+        [TestMethod]
+        public void StartAndEndTimeBeforeMidnightwithNoBedTimeOneHour()
+        {
+            DateTime todaysDate = DateTime.Now;
+            // For midnight
+            DateTime tomorrowsDate = DateTime.Now;
+            startTime = new DateTime(todaysDate.Year, todaysDate.Month, todaysDate.Day, 17,0,0);
+            endTime = new DateTime(todaysDate.Year, todaysDate.Month, todaysDate.Day, 18, 0, 0);
+            bedTime = new DateTime();
+            Assert.AreEqual("$12.00", sitter.job(startTime, endTime, bedTime));
+        }
     }
 }

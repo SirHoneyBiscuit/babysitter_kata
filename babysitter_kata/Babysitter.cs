@@ -9,7 +9,7 @@ namespace babysitter_kata
     public class Babysitter
     {
         private double TotalFee = 0.0;
-        private const double StartToBedRate = 12.0;
+        private const double StartToBedOrMidnightRate = 12.0;
         private const double BedToMidnightRate = 8.0;
         private const double MidnightToEndRate = 16.0;
 
@@ -22,6 +22,8 @@ namespace babysitter_kata
 
         public string job(DateTime _startTime, DateTime _endTime, DateTime _bedTime)
         {
+            var normalRateHours = _endTime.Hour - _startTime.Hour;
+            TotalFee += normalRateHours * StartToBedOrMidnightRate;             
             return fee();
         }
     }
