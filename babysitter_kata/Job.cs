@@ -17,6 +17,7 @@ namespace babysitter_kata
         private const int MinStartTime   = 17;
         private const int MaxEndTime     = 4;
         private const int MidnightAsHour = 24;
+        private const int CeilingMinutes = 30;
 
         public Job(DateTime _startTime, DateTime _endTime, DateTime _bedTime)
         {
@@ -27,9 +28,22 @@ namespace babysitter_kata
             // If we start after midnight, we want the midnight of the next day
             // This will allow us to use the built in comparison operators
             Midnight = StartTime.Subtract(_startTime.TimeOfDay);
-            if (StartTime.Hour > MaxEndTime)
+            if (StartHours > Midnight.Hour)
                 Midnight = Midnight.AddDays(1);
         }
+
+        // Partial hours not allowed.
+        // Floor any values before 30 and ceiling any that are 30 or over
+        private int roundedHourValue(DateTime _timeToRound)
+        {
+            if (_timeToRound.Minute >= CeilingMinutes)
+                return (_timeToRound.Hour + 1);
+            else return (_timeToRound.Hour);
+        }
+
+        private int StartHours { get { return roundedHourValue(StartTime); } }
+        private int EndHours { get { return roundedHourValue(EndTime); } }
+        private int BedHours { get { return roundedHourValue(BedTime); } }
 
         public int getNormalRateHours()
         {
@@ -40,13 +54,13 @@ namespace babysitter_kata
             if (BedTime != new DateTime() && BedTime < Midnight)
             {
                 if(BedTime > EndTime)
-                    return EndTime.Hour - StartTime.Hour;
-                return BedTime.Hour - StartTime.Hour;
+                    return EndHours - StartHours;
+                return BedHours - StartHours;
             }
             if (EndTime < Midnight)
-                return EndTime.Hour - StartTime.Hour;
+                return EndHours - StartHours;
             // Since the midnight hour is 0, we need to subtract the start time from 24 (which, in this case, is also midnight)
-            return MidnightAsHour - StartTime.Hour;
+            return MidnightAsHour - StartHours;
         }
 
         public int getAfterMidnightHours()
@@ -57,9 +71,9 @@ namespace babysitter_kata
             }
             if (StartTime > Midnight)
             {
-                return EndTime.Hour - StartTime.Hour;
+                return EndHours - StartHours;
             }
-            return EndTime.Hour;
+            return EndHours;
         }
 
         public int getBedTimeHours()
@@ -71,7 +85,7 @@ namespace babysitter_kata
             {
                 return 0;
             }
-            return MidnightAsHour - BedTime.Hour;
+            return MidnightAsHour - BedHours;
 
         }
     }
