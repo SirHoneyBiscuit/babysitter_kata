@@ -22,14 +22,21 @@ namespace babysitter_kata
 
         public string job(DateTime _startTime, DateTime _endTime, DateTime _bedTime)
         {
-            Job tonightsJob = new Job(_startTime,_endTime, _bedTime);
+            Job tonightsJob = new Job(_startTime, _endTime, _bedTime);
+            return job(tonightsJob);
+        }
 
-            var normalRateHours = tonightsJob.getNormalRateHours();
-            var bedtimeHours = tonightsJob.getBedTimeHours();
-            var afterMidnightHours = tonightsJob.getAfterMidnightHours();
-            TotalFee = (normalRateHours * StartToBedOrMidnightRate)
-                     + (bedtimeHours * BedToMidnightRate) 
-                     + (afterMidnightHours * MidnightToEndRate);             
+        public string job(Job _newJob)
+        {
+            if (_newJob.hasValidHours())
+            {
+                var normalRateHours = _newJob.getNormalRateHours();
+                var bedtimeHours = _newJob.getBedTimeHours();
+                var afterMidnightHours = _newJob.getAfterMidnightHours();
+                TotalFee = (normalRateHours * StartToBedOrMidnightRate)
+                         + (bedtimeHours * BedToMidnightRate)
+                         + (afterMidnightHours * MidnightToEndRate);
+            }
             return fee();
         }
     }

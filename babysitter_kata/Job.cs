@@ -18,11 +18,15 @@ namespace babysitter_kata
         private const int MaxEndTime     = 4;
         private const int MidnightAsHour = 24;
 
+        private int StartHours { get { return TimeFormatter.roundedHourValue(StartTime); } }
+        private int EndHours { get { return TimeFormatter.roundedHourValue(EndTime); } }
+        private int BedHours { get { return TimeFormatter.roundedHourValue(BedTime); } }
+
         public Job(DateTime _startTime, DateTime _endTime, DateTime _bedTime)
         {
-            StartTime = _startTime;
-            EndTime = _endTime;
-            BedTime = _bedTime;
+            StartTime   = _startTime;
+            EndTime     = _endTime;
+            BedTime     = _bedTime;
 
             // If we start after midnight, we want the midnight of the next day
             // This will allow us to use the built in comparison operators
@@ -31,17 +35,39 @@ namespace babysitter_kata
                 Midnight = Midnight.AddDays(1);
         }
 
-        private int StartHours { get { return TimeFormatter.roundedHourValue(StartTime); } }
-        private int EndHours { get { return TimeFormatter.roundedHourValue(EndTime); } }
-        private int BedHours { get { return TimeFormatter.roundedHourValue(BedTime); } }
+        public bool hasValidHours()
+        {
+            if (!isValidTime(StartHours))
+                return false;
+            if (!isValidTime(EndHours))
+                return false;
+            return true;
+        }
+
+        private bool isValidTime(int _hour)
+        {
+            if(isBetween(MinStartTime, MidnightAsHour, _hour) || 
+                isBetween(0, MaxEndTime, _hour))
+                return true;
+            else return false;
+        }
+
+        private bool isBetween(int _value1, int _value2, int _testValue)
+        {
+            if (_testValue >= _value1 && _testValue <= _value2)
+                return true;
+            else return false;
+        }
 
         public int getNormalRateHours()
         {
-            if (EndTime <= StartTime || StartTime > Midnight)
+            if (EndTime <= StartTime || 
+                StartTime > Midnight)
             {
                 return 0;
             }
-            if (BedTime != new DateTime() && BedTime < Midnight)
+            if (BedTime != new DateTime() && 
+                BedTime < Midnight)
             {
                 if(BedTime > EndTime)
                     return EndHours - StartHours;
@@ -76,7 +102,6 @@ namespace babysitter_kata
                 return 0;
             }
             return MidnightAsHour - BedHours;
-
         }
     }
 }
