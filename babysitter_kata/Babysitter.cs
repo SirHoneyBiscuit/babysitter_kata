@@ -25,8 +25,10 @@ namespace babysitter_kata
             Job tonightsJob = new Job(_startTime,_endTime, _bedTime);
 
             var normalRateHours = tonightsJob.getNormalRateHours();
+            var bedtimeHours = tonightsJob.getBedTimeHours();
             var afterMidnightHours = tonightsJob.getAfterMidnightHours();
-            TotalFee = (normalRateHours * StartToBedOrMidnightRate) 
+            TotalFee = (normalRateHours * StartToBedOrMidnightRate)
+                     + (bedtimeHours * BedToMidnightRate) 
                      + (afterMidnightHours * MidnightToEndRate);             
             return fee();
         }

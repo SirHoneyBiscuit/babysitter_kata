@@ -37,6 +37,12 @@ namespace babysitter_kata
             {
                 return 0;
             }
+            if (BedTime != new DateTime() && BedTime < Midnight)
+            {
+                if(BedTime > EndTime)
+                    return EndTime.Hour - StartTime.Hour;
+                return BedTime.Hour - StartTime.Hour;
+            }
             if (EndTime < Midnight)
                 return EndTime.Hour - StartTime.Hour;
             // Since the midnight hour is 0, we need to subtract the start time from 24 (which, in this case, is also midnight)
@@ -54,6 +60,19 @@ namespace babysitter_kata
                 return EndTime.Hour - StartTime.Hour;
             }
             return EndTime.Hour;
+        }
+
+        public int getBedTimeHours()
+        {
+            if(BedTime == new DateTime() || 
+                BedTime > Midnight || 
+                BedTime < StartTime || 
+                BedTime > EndTime)
+            {
+                return 0;
+            }
+            return MidnightAsHour - BedTime.Hour;
+
         }
     }
 }
