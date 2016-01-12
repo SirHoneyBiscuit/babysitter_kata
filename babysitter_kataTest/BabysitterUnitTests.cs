@@ -99,5 +99,14 @@ namespace babysitter_kataTest
             bedTime = new DateTime();
             Assert.AreEqual("$0.00", sitter.job(startTime, endTime, bedTime));
         }
+
+        [TestMethod]
+        public void InvalidTimeBecauseOfPartialReturnsNoMoney()
+        {
+            startTime = new DateTime(todaysDate.Year, todaysDate.Month, todaysDate.Day, 17, 0, 0);
+            endTime = new DateTime(tomorrowsDate.Year, tomorrowsDate.Month, tomorrowsDate.Day, 4, 29, 0);
+            bedTime = new DateTime();
+            Assert.AreEqual("$0.00", sitter.job(startTime, endTime, bedTime));
+        }
     }
 }

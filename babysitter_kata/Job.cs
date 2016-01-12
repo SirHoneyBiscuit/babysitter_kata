@@ -20,8 +20,8 @@ namespace babysitter_kata
         DateTime EndTime;
         DateTime BedTime;
         DateTime Midnight;
-        private const int MinStartTime   = 17;
-        private const int MaxEndTime     = 4;
+        private const int MinStartTime = 17;
+        private const int MaxEndTime = 4;
         private const int MidnightAsHour = 24;
 
         private int StartHours { get { return TimeFormatter.roundedHourValue(StartTime); } }
@@ -30,9 +30,9 @@ namespace babysitter_kata
 
         public Job(DateTime _startTime, DateTime _endTime, DateTime _bedTime)
         {
-            StartTime   = _startTime;
-            EndTime     = _endTime;
-            BedTime     = _bedTime;
+            StartTime = _startTime;
+            EndTime = _endTime;
+            BedTime = _bedTime;
 
             // If we start after midnight, we want the midnight of the next day
             // This will allow us to use the built in comparison operators
@@ -49,7 +49,8 @@ namespace babysitter_kata
         {
             if (!isValidTime(StartHours))
                 return false;
-            if (!isValidTime(EndHours))
+            if (!isValidTime(EndHours) || 
+                (EndTime.Minute != 0 && EndTime.Hour == 4 ))
                 return false;
             return true;
         }
