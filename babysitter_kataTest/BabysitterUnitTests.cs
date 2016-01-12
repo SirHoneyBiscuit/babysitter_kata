@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+Project: Babysitter_Kata
+Author: Benjamin Smith
+Date: 1/11/2016
+*/
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using babysitter_kata;
 
