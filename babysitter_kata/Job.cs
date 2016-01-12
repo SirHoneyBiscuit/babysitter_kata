@@ -1,10 +1,4 @@
-﻿/*
-Project: Babysitter_Kata
-Author: Benjamin Smith
-Date: 1/11/2016
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,10 +35,6 @@ namespace babysitter_kata
                 Midnight = Midnight.AddDays(1);
         }
 
-        /// <summary>
-        /// Ensures the Job's start and end times are valid
-        /// </summary>
-        /// <returns></returns>
         public bool hasValidHours()
         {
             if (!isValidTime(StartHours))
@@ -54,11 +44,6 @@ namespace babysitter_kata
             return true;
         }
 
-        /// <summary>
-        /// Ensures the Job's time values are valid based on the min and max value rules
-        /// </summary>
-        /// <param name="_hour"></param>
-        /// <returns></returns>
         private bool isValidTime(int _hour)
         {
             if(isBetween(MinStartTime, MidnightAsHour, _hour) || 
@@ -67,24 +52,13 @@ namespace babysitter_kata
             else return false;
         }
 
-        /// <summary>
-        ///  Returns id testValue is or is between minValue and maxValue
-        /// </summary>
-        /// <param name="_minValue"></param>
-        /// <param name="_maxValue"></param>
-        /// <param name="_testValue"></param>
-        /// <returns></returns>
-        private bool isBetween(int _minValue, int _maxValue, int _testValue)
+        private bool isBetween(int _value1, int _value2, int _testValue)
         {
-            if (_testValue >= _minValue && _testValue <= _maxValue)
+            if (_testValue >= _value1 && _testValue <= _value2)
                 return true;
             else return false;
         }
 
-        /// <summary>
-        /// Gets the amount of hours that qualify for the normal rate
-        /// </summary>
-        /// <returns></returns>
         public int getNormalRateHours()
         {
             if (EndTime <= StartTime || 
@@ -101,13 +75,10 @@ namespace babysitter_kata
             }
             if (EndTime < Midnight)
                 return EndHours - StartHours;
+            // Since the midnight hour is 0, we need to subtract the start time from 24 (which, in this case, is also midnight)
             return MidnightAsHour - StartHours;
         }
 
-        /// <summary>
-        /// Gets the amount of hours the qualify for the midnight to end of job rate
-        /// </summary>
-        /// <returns></returns>
         public int getAfterMidnightHours()
         {
             if (EndTime < Midnight)
@@ -121,10 +92,6 @@ namespace babysitter_kata
             return EndHours;
         }
 
-        /// <summary>
-        /// Gets the amount of hours that qualify for the bedtime to midnight rate
-        /// </summary>
-        /// <returns></returns>
         public int getBedTimeHours()
         {
             if(BedTime == new DateTime() || 
