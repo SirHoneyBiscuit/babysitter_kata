@@ -11,6 +11,8 @@ namespace babysitter_kataTest
         DateTime startTime;
         DateTime endTime;
         DateTime bedTime;
+        DateTime todaysDate;
+        DateTime tomorrowsDate;
         /*  
          * The babysitter class contains a job function 
          *  It should take 3 values
@@ -24,6 +26,8 @@ namespace babysitter_kataTest
         public void setupUnitTest()
         {
             sitter = new Babysitter();
+            todaysDate = DateTime.Now;
+            tomorrowsDate = DateTime.Now.AddDays(1);
         }
 
         [TestCleanup]
@@ -48,13 +52,19 @@ namespace babysitter_kataTest
         [TestMethod]
         public void StartAndEndTimeBeforeMidnightwithNoBedTimeOneHour()
         {
-            DateTime todaysDate = DateTime.Now;
-            // For midnight
-            DateTime tomorrowsDate = DateTime.Now;
             startTime = new DateTime(todaysDate.Year, todaysDate.Month, todaysDate.Day, 17,0,0);
             endTime = new DateTime(todaysDate.Year, todaysDate.Month, todaysDate.Day, 18, 0, 0);
             bedTime = new DateTime();
             Assert.AreEqual("$12.00", sitter.job(startTime, endTime, bedTime));
+        }
+
+        [TestMethod]
+        public void StartAndEndTimeAtMaxValuesNoBed()
+        {
+            startTime = new DateTime(todaysDate.Year, todaysDate.Month, todaysDate.Day, 17, 0, 0);
+            endTime = new DateTime(tomorrowsDate.Year, tomorrowsDate.Month, tomorrowsDate.Day, 4, 0, 0);
+            bedTime = new DateTime();
+            Assert.AreEqual("$148.00", sitter.job(startTime, endTime, bedTime));
         }
     }
 }
