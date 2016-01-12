@@ -17,7 +17,6 @@ namespace babysitter_kata
         private const int MinStartTime   = 17;
         private const int MaxEndTime     = 4;
         private const int MidnightAsHour = 24;
-        private const int CeilingMinutes = 30;
 
         public Job(DateTime _startTime, DateTime _endTime, DateTime _bedTime)
         {
@@ -32,18 +31,9 @@ namespace babysitter_kata
                 Midnight = Midnight.AddDays(1);
         }
 
-        // Partial hours not allowed.
-        // Floor any values before 30 and ceiling any that are 30 or over
-        private int roundedHourValue(DateTime _timeToRound)
-        {
-            if (_timeToRound.Minute >= CeilingMinutes)
-                return (_timeToRound.Hour + 1);
-            else return (_timeToRound.Hour);
-        }
-
-        private int StartHours { get { return roundedHourValue(StartTime); } }
-        private int EndHours { get { return roundedHourValue(EndTime); } }
-        private int BedHours { get { return roundedHourValue(BedTime); } }
+        private int StartHours { get { return TimeFormatter.roundedHourValue(StartTime); } }
+        private int EndHours { get { return TimeFormatter.roundedHourValue(EndTime); } }
+        private int BedHours { get { return TimeFormatter.roundedHourValue(BedTime); } }
 
         public int getNormalRateHours()
         {
